@@ -1,145 +1,219 @@
--- Upiti u SQL
-SELECT * FROM radnik;
-SELECT * FROM projekat;
-SELECT * FROM radproj;
+-- <SELECT>
+-- Izlistati sadržaj svih tabela
+select * from radnih;
+select * from projekat;
+select * from radproj;
 
-SELECT ime, prz FROM radnik;
+-- Prikazati imena i prezimena svih radnika
+select ime, prz 
+from radnik;
 
--- IzlIStati različita imena radnika
-SELECT DISTINCT ime FROM radnik;
+-- <DISTINCT>
+-- Izlistati različita imena radnika
+select distinct ime 
+from radnik;
 
--- Prikaži radnike čija plata je veća od 25000
-SELECT mbr, ime, prz FROM radnik 
-WHERE plt>25000;
+-- <WHERE>
+-- Izlistati mbr, ime i prezime radnika koji imaju platu veću od 25000
+select mbr, ime, prz
+from radnik
+where plt > 25000;
 
--- Izračunati godišnju platu svih radnika
-SELECT mbr, ime, prz, plt*12 FROM radnik;
+-- Aritmetički izrazi
+-- Izlistati godišnju platu svakog radnika
+select mbr, ime, prz, plt*12
+from radnik;
 
--- Radnici koji nemaju šefa
-SELECT mbr, ime, prz FROM radnik 
-WHERE sef IS NULL;
+-- NULL vrednost
+-- Izlistati mbr, ime, prz radnika koji nemaju šefa
+select mbr, ime, prz
+from radnik
+where sef is null;
 
--- Prikaži radnike čija plata je između 20000 i 24000
-SELECT mbr, ime, prz FROM radnik 
-WHERE plt BETWEEN 20000 AND 24000;
+-- <BETWEEN>
+-- Izlistati mbr, ime, prz radnika čija je
+-- plata između 20000 i 24000 dinara
+select mbr, ime, prz
+from radnik
+where plt between 20000 and 24000;
 
--- Prikaži radnike rođene između 1953 i 1975
-SELECT ime, prz, god FROM radnik
-WHERE god BETWEEN '01-jan-1953' AND '31-dec-1975';
+-- Izlistati ime, prz, god radnika rođenih između 1953 i 1975
+select ime, prz, god
+from radnik
+where god between '01-jan-1953' and '31-dec-1975';
 
--- Prikaži radnike koji nISu rođeni između 1953 i 1975
-SELECT ime, prz, god FROM radnik
-WHERE god NOT BETWEEN '01-jan-1953' AND '31-dec-1975';
+-- Izlistati ime, prz, god radnika koji nisu rođeni između 1953 i 1975
+select ime, prz, god
+from radnik
+where god not between '01-jan-1953' and '31-dec-1975';
 
--- Prikaži radnike čije prezime počINje sa slovom M
-SELECT mbr, ime, prz FROM radnik
-WHERE prz LIKE 'M%';
+-- <LIKE>
+-- Izlistati mbr, ime, prz radnika čije prezime počinje na slovo M
+select mbr, ime, prz
+from radnik
+where prz like 'M%';
 
--- Prikaži radnike čije ime ne počINje sa slovom A
-SELECT mbr, ime, prz FROM radnik
-WHERE ime NOT LIKE 'A%';
+-- Izlistati mbr, ime, prz radnika čije ime ne počinje slovom A
+select mbr, ime, prz
+from radnik
+where ime not like 'A%';
 
--- Prikaži radnike čije ime sadrži slovo a na drugoj poziciji
-SELECT mbr, ime, prz FROM radnik
-WHERE ime LIKE '_a%';
+-- Izlistati mbr, ime, prz radnika čije ime 
+-- sadrži slovo a na drugoj poziciji
+select mbr, ime, prz
+from radnik
+where ime like '_a%';
 
--- Prikaži radnike čije ime počINje sa slovom E
-SELECT DISTINCT ime FROM radnik
-WHERE ime LIKE 'E%';
+-- Izlistati imena radnika koja počinju na slovo E
+-- Imena ne bi trebalo da se ponavljaju
+select distinct ime
+from radnik
+where ime like 'E%';
 
--- Prikaži radnike koji u svom imenu imaju slovo E(e)
-SELECT mbr, ime, prz FROM radnik
-WHERE ime LIKE '%e%' OR ime LIKE '%E%';
+-- Izlistati radnike koji u svom imenu imaju slovo E (e)
+select mbr, ime, prz
+from radnik
+where ime like '%e%' or ime like '%E%';
 
--- Prikaži matične brojeve radnika koji rade na projektima sa šiFROM 10,20 ili 30
-SELECT DISTINCT mbr FROM radproj
-WHERE spr IN (10, 20, 30);
+-- <IN>
+-- Izlistati matične brojeve radnika koji 
+-- rade na projektima sa šifrom 10, 20 ili 30
+select distinct mbr
+from radproj
+where spr in (10, 20, 30);
 
--- Prikaži matične brojeve radnika koji rade na projektima sa šiFROM 10,
--- ili rade 2,4 ili 6 sati
-SELECT DISTINCT mbr FROM radproj
-WHERE brc IN (2, 4, 6) OR spr='10';
+-- Izlistati matične brojeve radnika koji rade na
+-- projektu sa šifrom 10, ili rade 2, 4, ili 6 sati.
+select distinct mbr
+from radproj
+where brc in (2, 4, 6) or spr='10';
 
--- IzlIStati matične brojeve radnika koji se ne zovu Ana ili Sanja
-SELECT mbr, ime, prz FROM radnik
-WHERE ime NOT IN ('Ana', 'Sanja');
+-- Izlistati matične brojeve radnika koji se ne zovu Ana ili Sanja
+select mbr, ime, prz
+from radnik
+where ime not in ('Ana', 'Sanja');
 
--- Prikazati radnike koji imaju šefa, sORtirano po prezimenu
-SELECT mbr, ime, prz, plt FROM radnik
-WHERE sef IS NOT NULL ORDER BY prz ASC;
+-- <ORDER BY>
+-- Prikazati radnike koji imaju šefa sortirano po prezimenu
+select mbr, ime, prz
+from radnik
+where sef is not null
+order by prz asc;
 
--- SORtiraj ranike rAStući po prezimenu i opadajući po imenu
-SELECT Mbr, Prz, Ime, Plt
-FROM Radnik ORDER BY Prz ASC, Ime DESC;
+-- Neki primeri za ORDER BY
+select mbr, prz, ime, plt
+from radnik 
+order by prz asc, ime desc;
 
--- Umesto imena oznaka, možemo i kORIStiti brojeve 1,2,...
--- onim redosledom kojim su kORišćeni kod SELECT
-SELECT Mbr, Prz, Ime FROM Radnik
-ORDER BY 2, 3, Plt;
+select mbr, prz, ime
+from radnik
+order by 2, 3, plt;
 
--- Možemo kORistiti i aliASe
-SELECT Mbr, Ime, Prz, Plt "Plata" FROM Radnik
-ORDER BY Plata DESC;
+select mbr, prz, ime
+from radnik
+order by 2, 3, plt * 1.18;
 
--- Prikazati radnike čije prezime sadrži ime
-SELECT * FROM radnik WHERE LOWER(prz)
-LIKE '%' || LOWER(ime) || '%';
+-- Prikazati matične brojeve, imena, prezimena i plate radnika,
+-- po opadajućem redosledu iznosa plate
+select mbr, ime, prz Plata
+from radnik
+order by Plata desc;
 
--- Prikazati radnike i platu koji se zovu Pera ili Moma
-SELECT Mbr, Ime, Prz, Plt FROM Radnik
-WHERE Ime = ANY ('Pera', 'Moma');
+-- UREĐIVANJE IZLAZNIH REZULTATA
+-- Prikazati matične brojeve, spojena (konkatenirana) imena i
+-- prezimena radnika, kao i plate, uvećane za 17%
+select mbr, ime || '' || prz "Ime i prezime", plt * 1.17 Plata 
+from radnik;
 
--- Prikazati radnike i platu koji se ne zovu Pera ili Moma
-SELECT Mbr, Ime, Prz, Plt FROM Radnik
-WHERE Ime !=ALL ('Pera', 'Moma');
+-- Prikazati radnike čije prezime sadrži ime (Marko Marković npr)
+select * 
+from radnik
+where lower(prz) like '%' || lower(ime) || '%';
 
--- Prikazati šta se dobije kada se plata ranika uveća za NULL vrednost
-SELECT Mbr, Plt + NULL FROM Radnik;
+-- <ANY>
+-- Prikazati matične brojeve radnika, imena i prezimena i platu 
+-- radnika koji se zovu Pera ili Moma
+select mbr, ime, prz, plt
+from radnik
+where ime = any('Pera', 'Moma');
 
--- Prikazati platu svih radnika uvećane za godišnju premiju
-SELECT Mbr, Plt + Pre FROM Radnik;
+-- <ALL>
+-- Prikazati matične brojeve radnika, imena i prezimena i platu
+-- radnika koji se ne zovu Pera ili Moma.
+select mbr, ime, prz, plt
+from radnik
+where ime != all('Pera', 'Moma');
 
--- Prikazati platu svih radnika uvećane za godišnju premiju
--- Ukoliko za nekog radnika ne postoji vrednost premije, smatrati da ona iznosi 0
-SELECT Mbr, Plt + NVL(Pre, 0) FROM Radnik;
+-- SKUPOVNE FUNKCIJE
+-- Prikazati matične brojeve radnika, kao i plate, 
+-- uvećane za NULL vrednost
+select mbr, plt + null
+from radnik;
+--> problem zbog null
 
--- Prikazati koliko ima radnika
-SELECT count(*) FROM radnik;
+-- Prikazati matične brojeve radnika, kao i plate,
+-- uvećane za godišnju premiju
+select mbr, plt + pre 
+from radnik;
+--> problem jer nemaju svi premiju
 
--- Prikazati koliko ima šefova
-SELECT count(DISTINCT sef) broj_sefova FROM radnik;
+-- <NVL(izraz, konstanta)>
+-- Prikazati matične brojeve radnika, kao i plate, uvećane za 
+-- godišnju premiju. Ukoliko za nekog radnika vrednost
+-- premije ne postoji, smatrati da ona iznosi 0
+select mbr, plt + NVL(pre, 0)
+from radnik;
 
+-- <COUNT>
+-- Koliko ima radnika?
+select count(*)
+from radnik;
+
+-- Koliko ima šefova?
+select count(distinct sef) broj_sefova
+from radnik;
+
+-- <MIN> <MAX>
 -- Prikazati minimalnu i maksimalnu platu radnika
-SELECT min(plt) minimalna, max(plt) maksimalna FROM radnik;
+select min(plt) minimalna, max(plt) maksimalna
+from radnik;
 
+-- <SUM> - ignoriše NULL vrednost
 -- Prikazati broj radnika i ukupnu mesečnu platu svih radnika
-SELECT count(*) "Broj radnika", sum(plt) "Ukupna mesecna plata"
-FROM radnik;
+select count(*) "Broj radnika", sum(plt) "Ukupna mesecna plata"
+from radnik;
 
--- Prikazati broj radnika, prosečnu platu i ukupnu godišnju platu svih radnika
-SELECT count(*) "Broj radnika", avg(plt) "Prosecna plata",
-12*sum(plt) "Godisnja plata" FROM radnik;
+-- <AVG> - ignoriše NULL vrednost
+-- Prikazati broj radnika, prosečnu platu i 
+-- ukupnu godišnju platu svih radnika.
+select 
+	count(*) "Broj radnika", 
+	avg(plt) "Prosecna plata", 
+	12*sum(plt) "Godisnja plata"
+from radnik;
 
--- Prikazati ukupnu premiju svih radnika čiji je mbr veći od 100
-SELECT SUM(pre) FROM radnik 
-WHERE mbr >100;
+-- <ROUND>
+-- Prikazati prosečnu platu svih radnika pomnoženu 
+-- sa koren iz 2 (1,41), zaokruženo na dve decimale.
+select round(avg(plt * 1.41), 2)
+from radnik;
 
--- Prikazati prosečnu platu svih radnika zaokruženu na dve decimale
-SELECT round(avg(plt *1.41), 2)
-FROM radnik;
+-- select u select-u
+select * from 
+(select mbr, ime, from radnik);
 
--- Možemo selektovati iz tabela (select u select-u)
-SELECT * FROM (SELECT MBR,IME FROM radnik);
-
+-- <ROWNUM>
 -- Prikazati 10 radnika koji imaju najveću platu,
--- sORtiranih po plati u opadajućem redosledu
-SELECT mbr, plt, rownum FROM
-(SELECT * FROM Radnik ORDER BY plt desc)
-WHERE ROWNUM < 11;
+-- sortiranih po plati u opadajućem redosledu
+select mbr, plt, rownum 
+from (select * from radnik order by plt desc)
+where rownum <= 10;
 
--- Za svakog radnika prikazati red koji sadrži njegovu platu, 
--- prosečnu platu i apsolutnu (ABS) razliku prosečne plate i njegove plate
-SELECT PLT, (SELECT ROUND(AVG(PLT), 2) 
-FROM radnik) AS prosecna_plata,
-ABS((SELECT ROUND(AVG(PLT), 2) 
-FROM RADNIK) – plt) AS razlika FROM radnik;
+-- Prikazati za svakog radnika red koji sadrži 
+-- njegovu platu, prosečnu platu i apsolutnu (ABS)
+-- razliku prosečne plate i njegove plate
+select 
+	plt,
+	(select round(avg(plt), 2) from radnik) as prosecna_plata,
+	abs((select round(avg(plt), 2) from radnik) - plt) as razlika
+from radnik;
