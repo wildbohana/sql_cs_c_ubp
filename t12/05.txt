@@ -1,0 +1,139 @@
+Mrežni i hijerarhijski model - nedostaci:
+- čvrsta povezanost programa i fizičke strukture podataka
+- strukturalna kompleksnost
+- proceduralno orijentisani jezici za manipulaciju podacima
+- "ad hoc" razvijeni modeli
+
+Relacioni model - motiv razvoja:
+- otklanjanje nedostataka klasičnih modela podataka
+- insistiranje na matematičkim osnovama u razvoju MP
+
+Relacioni modeli podataka su rešili problem nezavisnosti programa od podataka (potpuno odvajanje prezentacionog od formata memorisanja)
+
+Relacioni modeli podataka uvode strukturalnu jednostavnost:
+- koncept relacije je osnova reprezentacije logičkih struktura podataka u RMP, ne sadrži nikakve informacije o fizičkoj organizaciji podataka
+- selekcija podataka u operacijama nad BP se vrši asocijativnim adresiranjem (isključiva upotreba simboličkih adresa)
+- povezivanje podataka upotrebom simboličkih adresa (prenete vrednosti ključa)
+
+Nastaje deklarativni jezik koji se temelji na primenjenim tehnikama povezivanja podataka sa prostiranjem ključa
+Dva alata za upitni jezik - relaciona algebra i relacioni račun
+Structured Query Language (SQL):
+- zasnovan na relacionom računu nad torkama
+- deklarativan
+- rad sa skupovima podataka (torki)
+
+12 principa relacionog modela podataka:
+- Da bi se sistem kvalifikovao kao relacioni sistem za upravljanje bazom podataka, taj sistem mora koristiti svoje relacione operacije da bi upravljao bazom podataka.
+- Sve informacije u bazi podataka se prikazuju na jedan i samo jedan način, pre svega preko vrednosti u kolonama unutar vrsta od tabela.
+- Svim podacima se mora moći pristupiti preko ključa. Svakoj vrednosti u BP se mora moći logički pristupiti preko imena tabele, kolone i primarnog ključa vrste u kojoj se nalazi.
+- Sistem za upravljanje bazom podataka mora svakom polju da dozvoli da ostane prazno (ili null).
+- Korisnici moraju moći da pristupe strukturi baze podataka (katalogu) koristeći isti upitni jezik koji su koristili da pristupe podacima u bazi podataka.
+- Sistem mora da podržava bar jedan relacioni jezik.
+- Svi pogledi koji se u teoriji mogu ažurirati, moraju da mogu da se ažuriraju preko sistema.
+- Operacije insert, update i delete bi trebale da mogu da se koriste nad bilo kojim skupom, umesto samo nad jednom vrstom u jednoj tabeli.
+- Promene na fizičkom nivou ne smeju da zahtevaju promene u aplikacijama koje su zasnovane na toj strukturi.
+- Promene na logičkom nivou (tabele, kolone...) ne smeju da zahtevaju promenu u aplikacijama koje su zasnovane na toj strukturi.
+- Ograničenja integriteta moraju biti odvojeno specificirana od aplikativnih programa i sačuvani u katalogu.
+- Distribucija delova baze podazaka na više lokacija ne bi trebalo biti vidljivo korisnicima baze podataka.
+- Ako relacioni sistem ima nizak jezik, taj nizak nivo ne sme biti koriščen da bi se zaobišla pravila integriteta i ograničenja koja su jezici višeg nivoa nametnula.
+
+Torka reprezentuje jednu pojavu entiteta ili poveznika
+Pomoću torke se svakom obeležju, iz nekog skupa obeležja, dodeljuje konkretna vrednost
+Restrikcija (“skraćenje”) torke t na skup obeležja X c U (npr. umesto da ima 10 obeležja, imaće samo 3, ali sa istim vrednostima)
+
+Relacija nad skupom obeležja U predstavlja konačan skup torki
+Reprezentuje skup realnih entiteta ili poveznika
+	r(U) c {t | t: U→DOM}, |r| € ℕ0
+U relaciji se ne mogu pojaviti dve identične torke; to je onda ista torka, samo dva puta prikazana
+Uobičajena reprezentacija relacije - pomoću tabele
+
+Upitni jezik sačinjavaju:
+- operatori za izražavanje upita
+- pravila za formiranje operanada upita - izraza
+- pravila za primenu tih operatora
+Osnovne skupovne operacije nad relacijama:
+- unija 
+- presek 
+- razlika
+
+Selekcija torki iz relacije omogućava izbor (selektovanje) torki relacije po nekom kriterijumu
+Logičkom formulom F izražava se kriterijum po kojem se torke relacije r selektuju
+Biće selektovane samo one torke, za koje je formula F tačna
+
+Projekcija (restrikcija) relacije - izdvajanje vrednosti pojedinih kolona iz relacije
+Prirodni spoj relacija - spajanje torki različitih relacija po osnovu istih vrednosti zajedničkih obeležja
+Dekartov proizvod relacija - spajanje formiranjem svih mogućih kombinacija torki iz dve relacije
+Theta spajanje relacija - selektovanje torki po nekom kriterijumu iz dekartovog proizvoda relacija
+
+Relaciona šema baze podataka je (imenovani) par (S, I)
+	- S - skup šema relacija
+	- I - skup međurelacionih ograničenja
+Relaciona baza podataka - jedna pojava nad zadatom relacionom šemom baze podataka
+
+Šema BP - nivo intenzije
+Relaciona BP - nivo ekstenzije
+
+Baza podataka RBP nad šemom (S, I) nalazi se u:
+- formalno konzistentnom stanju ako RBP zadovoljava sva međurelaciona ograničenja iskazana putem I
+- suštinski konzistentnom stanju ako se nalazi u formalno konzistentnom stanju i predstavlja vernu sliku stanja realnog sistema
+
+Karakteristike tipa ograničenja:
+- formalizam za zapisivanje (definicija)
+- pravilo za interpretaciju (validaciju)
+- oblast definisanosti - tip logičke strukture obeležja nad kojom se ograničenje definiše
+- oblast interpretacije - tip logičke strukture podataka nad kojom se ograničenje interpretira
+
+Tipovi ograničenja u relacionom modelu podataka
+- ograničenje domena
+- ograničenje vrednosti obeležja
+- ograničenje torke
+- integritet entiteta (ograničenje ključa)
+- ograničenje jedinstvenosti vrednosti obeležja
+- zavisnost sadržavanja
+- ograničenje referencijalnog integriteta
+- funkcionalna zavisnost
+
+Oblasti definisanosti u relacionom MP:
+- vanrelaciono ograničenje - definiše se izvan konteksta šeme relacije
+- jednorelaciono ograničenje - definiše se nad tačno jednom šemom relacije
+- višerelaciono ograničenje - definiše se nad skupom ili nizom šema relacija, koji sadrži bar dva člana
+
+Oblasti interpretacije u relacionom MP:
+- ograničenje vrednosti - interpretira se nad tačno jednom vrednošću nekog obeležja
+- ograničenje torke - interpretira se nad jednom torkom bilo koje relacije
+- relaciono ograničenje - interpretira se nad skupom torki bilo koje relacije
+- međurelaciono ograničenje - interpretira se nad barem dve, bilo koje relacije
+
+Specifikacija domena:
+	D(id(D), Predef)
+Ograničenje domena:
+	id(D) = (Tip, Dužina, Uslov)
+Ograničenje vrednosti obeležja:
+	id(N, A) = (Domen, Null, Uslov)
+Ograničenje torke:
+	id(N) = id(R) = ({id(N, A) | A  R}, Uslov)
+Ograničenje ključa (integritet entiteta):
+	Key(N, X)
+	(K != prazan skup)
+Ograničenje jedinstvenosti:
+	Unique(N, X)
+Skup svih ograničenja šeme relacije (unija skupa ključeva, ograničenja jedinstvenosti i ograničenje torke):
+	N(R, K U Uniq U {id(R)})
+
+Ključ šeme relacije - minimalni podskup skupa obeležja šeme relacije, na osnovu kojeg se jedinstveno može identifikovati svaka torka relacije nad datom šemom
+Ekvivalentni ključevi - svi ključevi skupa ključeva K
+Primarni ključ - jedan izabrani ključ, od svih ekvivalentnih ključeva
+Svaka šema relacije treba da poseduje tačno jedan primarni ključ; koristi se u ulozi asocijativne adrese za povezivanje podataka u relacijama
+
+Trivijalna funkcionalna zavisnost - svaka FZ koja je zadovoljena u bilo kojoj relaciji
+
+Osnovne projektantske pretpostavke:
+1. Pretpostavka o postojanju šeme univerzalne relacije (ŠUR)
+	(U, OGR)
+	- U - univerzalan skup obeležja
+	- OGR - skup svih ograničenja realnog sistema
+2. Univerzalna relacija
+	- pojava nad ŠUR, r(U, OGR)
+	- reprezentuje stanje realnog sistema
+	- stanje relacione baze podataka nad (S, I) treba, u informativnom smislu, da odgovara sadržaju univerzalne relacije
+

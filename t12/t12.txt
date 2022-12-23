@@ -1,0 +1,15 @@
+~ T1 ~
+Koncepcija baze podataka
+Modeli podataka:
+ - model tipova entiteta i poveznika
+ - relacioni model podataka
+
+~ T2 ~
+Fizička organizacija podataka
+Organizacija datoteka:
+ - serijska
+ - sekvencijalna
+ - rasuta
+ - indeks-sekvencijalna
+ - datoteke sa B-stablom
+

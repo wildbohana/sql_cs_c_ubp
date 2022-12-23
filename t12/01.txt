@@ -1,0 +1,89 @@
+Informacioni sistem - model realnog sistema (procesa i resursa)
+Cilj izgradnje IS - pružanje informacija neophodnih za funkcionisanje i upravljanje RS 
+
+Entitet - jedinica posmatranja
+Model entiteta - skup "sličnih" entiteta (poseduju zajedničko svojstvo)
+	E = {ei | P(ei)}
+
+Poveznik - reprezentuje odnos dva ili više realnih entiteta, ili prethodno uspostavljenih poveznika
+Klasa poveznika - skup veza između klasa realnih entiteta ili prethodno identifikovanih klasa poveznika (poseduju isto svojstvo)
+	S = {(e1, …, em) | P(e1, …, em)}
+Predikat (svojstvo) klase entiteta/poveznika - P(ei)
+
+Obeležje (atribut) - osobina klase realnih entiteta ili poveznika 
+Vrste obeležja - prema mogućnosti dekomponovanja na celine nižeg reda: elementarno, složeno, skupovno
+Domen - specifikacija skupa mogućih vrednosti obeležja (sa definisanim dozvoljenim relacijama i operacijama nad tim skupom)
+Vrste domena - prema načinu nastanka: predefinisani (primitivni) i korisnički definisani (izvedeni)
+Svakom obeležju se pridružuje domen
+	Dom(A), (A : D)
+	dom(A)
+
+Podatak je uređena četvorka: (Entitet, Obeležje, Vreme, Vrednost)
+Kontekst podatka - semantička (smisaona) komponenta podatka, trojka (Entitet, Obeležje, Vrednost)
+Vreme, kao komponenta podatka, može se izostaviti
+
+Tip entiteta (TE) - model klase realnih entiteta u IS
+	SP(N) = {pi | P(pi)}
+Gradi se od obeležja bitnih za realizaciju ciljeva IS
+Skup obeležja TE predstavlja podskup skupa obeležja klase realnih entiteta
+
+Pojava tipa entiteta - model jednog realnog entiteta u IS
+Ukoliko se u skup atributa tipa entiteta uvede redosled obeležja, tada se pojava tipa entiteta posmatra kao torka 
+
+Identifikator tipa entiteta - skup obeležja koji ima ulogu da obezbedi način za jedinstveno označavanje bilo koje pojave tipa entiteta
+Bilo koja vrednost identifikatora TE označava najviše jednu pojavu tipa entiteta
+Vrste identifikatora tipa entiteta:
+- eksterni (ne predstavlja podskup skupa obeležja datog TE)
+- interni (predstavlja podskup skupa obeležja datog TE)
+
+Ključ TE - minimalni interni identifikator tipa entiteta
+Svaki tip entiteta poseduje bar jedan ključ
+Ključ predstavlja uređenu strukturu:
+	N(Q, C)
+	- N - naziv TE
+	- Q - skup obeležja TE
+	- C - skup ograničenja TE
+Primer: Radnik({Mbr, Ime, Prz, JMBG}, {Mbr, JMBG})
+Primarni ključ - jedan, izabrani, ključ iz skupa ključeva TE, često se označava podvlačenjem
+
+Tip poveznika (TP) - povezuje dva ili više TE, ili prethodno definisanih TP
+TP - model veza između pojava povezanih TE ili TP, odnosno između realnih entiteta ili veza
+Struktura:
+	N(N1, N2, …, Nm, Q, C)
+
+Pojava tipa poveznika - reprezentuje jedan poveznik u realnom sistemu
+	p(N) = (p1, …, pm)(N) = {(B1, b1),..., (Bk, bk)}
+
+Identifikator tipa poveznika - označava najviše jednu pojavu poveznika, niz (N1, N2, …, Nm)
+Ključ TP -skup obeležja X izveden na osnovu ključeva povezanih tipova (N1, N2, …, Nm)
+
+Struktura podataka - orijentisani graf G(V, ro)
+V - skup čvorova
+ro - skup grana
+
+Vrste struktura podataka - prema nivou apstrakcije pridružene semantike:
+- logičke strukture obeležja
+- logičke strukture podataka
+- fizičke strukture podataka
+
+Logička struktura obeležja (LSO)
+- Struktura nad skupom tipova entiteta, tipova poveznika i njihovih atributa
+- Model dela realnog sistema (resursa) 
+	M(STE, RTE)
+	- STE - skup tipova entiteta i/ili poveznika
+	- RTE - relacije izmešu STE
+
+Moguči pristupi organizaciji LSO:
+- i TE i TP su čvorovi
+- TE su čvorovi, TP su grane
+
+Logička struktura podataka (LSP)
+- LSO predstavlja kontekst (model) za LSP
+- definiše se nad skupom podataka, putem posebne relacije
+- definiše se u granicama zadate LSO
+Načini vizuelne reprezentacije: putem grafova, putem tabela
+Kontekstna LSO: pojava TE, datoteka, baza podataka...
+
+Fizička struktura podataka (FSP)
+- logička struktura podataka, smeštena na materijalni nosilac podataka - memorijski medijum
+- uključuje podatke o samom načinu smeštanja LSP na memorijski medijum
