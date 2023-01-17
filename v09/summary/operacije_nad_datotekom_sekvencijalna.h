@@ -19,6 +19,8 @@ void azurirajSlog(FILE* fajl, char* evidBroj, char* oznakaCelije, int duzinaKazn
 void obrisiSlogLogicki(FILE* fajl, char* evidBroj);
 void obrisiSlogFizicki(FILE* fajl, char* evidBroj);
 
+// Otvaranje postojece datoteke
+// Identicno
 FILE* otvoriDatoteku(char* filename) 
 {
 	FILE* fajl = fopen(filename, "rb+");
@@ -31,6 +33,8 @@ FILE* otvoriDatoteku(char* filename)
 	return fajl;
 }
 
+// Kreiranje datoteke
+// Identicno
 void kreirajDatoteku(char* filename) 
 {
 	FILE* fajl = fopen(filename, "wb");
@@ -51,6 +55,8 @@ void kreirajDatoteku(char* filename)
 	}
 }
 
+// Pronalazenje sloga sa trazenim kljucem
+// Skoro identicno
 SLOG* pronadjiSlog(FILE* fajl, char* evidBroj) 
 {
 	if (fajl == NULL) return NULL;
@@ -64,20 +70,18 @@ SLOG* pronadjiSlog(FILE* fajl, char* evidBroj)
 		for (int i = 0; i < FBLOKIRANJA; i++) 
 		{
 			// Nismo pronasli slog
+			// Razlika: provera da li je evidBroj veci od trazenog kljuca
 			if (strcmp(blok.slogovi[i].evidBroj, OZNAKA_KRAJA_DATOTEKE) == 0 
 			|| atoi(blok.slogovi[i].evidBroj) > atoi(evidBroj)) 
 			{
 				return NULL;
 			} 
-			// Pronadjen trazeni slog
-			else if (strcmp(blok.slogovi[i].evidBroj, evidBroj) == 0) 
+			// Ako se evidBroj poklapa i slog NIJE logicki obrisan
+			else if (strcmp(blok.slogovi[i].evidBroj, evidBroj) == 0 && !blok.slogovi[i].deleted) 
 			{
-				if (!blok.slogovi[i].deleted) 
-				{
-					SLOG* slog = (SLOG*)malloc(sizeof(SLOG));
-					memcpy(slog, &blok.slogovi[i], sizeof(SLOG));
-					return slog;
-				}
+				SLOG* slog = (SLOG*)malloc(sizeof(SLOG));
+				memcpy(slog, &blok.slogovi[i], sizeof(SLOG));
+				return slog;
 			}
 		}
 	}
@@ -85,6 +89,8 @@ SLOG* pronadjiSlog(FILE* fajl, char* evidBroj)
 	return NULL;
 }
 
+// Dodavanje novog sloga u datoteku
+// Velike razlike u ove dve funkcije
 void dodajSlog(FILE* fajl, SLOG* slog) 
 {
 	if (fajl == NULL) 
@@ -192,6 +198,7 @@ void dodajSlog(FILE* fajl, SLOG* slog)
 }
 
 // Ispis svih slogova iz datoteke
+// Identicno
 void ispisiSveSlogove(FILE* fajl) 
 {
 	if (fajl == NULL) 
@@ -215,7 +222,7 @@ void ispisiSveSlogove(FILE* fajl)
 				printf("B%d S%d *\n", rbBloka, i);
 				return;
 			}
-			// Ispis bloka 
+			// Ispis sloga 
 			else if (!blok.slogovi[i].deleted) 
 			{
 				printf("B%d S%d ", rbBloka, i);
@@ -229,6 +236,7 @@ void ispisiSveSlogove(FILE* fajl)
 }
 
 // Ispis sloga
+// Identicno
 void ispisiSlog(SLOG* slog) 
 {
 	printf("%8s  %7s  %02d-%02d-%4d %02d:%02d %7s %6d",
@@ -244,6 +252,7 @@ void ispisiSlog(SLOG* slog)
 }
 
 // Azuriranje sloga
+// Skoro identicno
 void azurirajSlog(FILE* fajl, char* evidBroj, char* oznakaCelije, int duzinaKazne) 
 {
 	if (fajl == NULL) 
@@ -260,6 +269,7 @@ void azurirajSlog(FILE* fajl, char* evidBroj, char* oznakaCelije, int duzinaKazn
 		for (int i = 0; i < FBLOKIRANJA; i++) 
 		{
 			// Dosli smo do kraja datoteke, ili do kljuca veceg od trazenog
+			// Razlika: proverava se i da li je evidBroj veci od trazenog kljuca
 			if (strcmp(blok.slogovi[i].evidBroj, OZNAKA_KRAJA_DATOTEKE) == 0 
 			|| atoi(blok.slogovi[i].evidBroj) > atoi(evidBroj)) 
 			{
@@ -291,6 +301,7 @@ void azurirajSlog(FILE* fajl, char* evidBroj, char* oznakaCelije, int duzinaKazn
 }
 
 // Logicko brisanje sloga sa trazenim kljucem
+// Skoro identicno
 void obrisiSlogLogicki(FILE* fajl, char* evidBroj) 
 {
 	if (fajl == NULL) 
@@ -306,6 +317,7 @@ void obrisiSlogLogicki(FILE* fajl, char* evidBroj)
 	{
 		for (int i = 0; i < FBLOKIRANJA; i++) 
 		{
+			// Razlika: provera da li je evidBroj veci od trazenog kljuca
 			if (strcmp(blok.slogovi[i].evidBroj, OZNAKA_KRAJA_DATOTEKE) == 0 
 			|| atoi(blok.slogovi[i].evidBroj) > atoi(evidBroj)) 
 			{
@@ -320,12 +332,15 @@ void obrisiSlogLogicki(FILE* fajl, char* evidBroj)
 					return;
 				}
 				
-				// Logicki oznaci slog kao obrisan, vrati azurirani blok u datoteku
+				// Logicko brisanje
 				blok.slogovi[i].deleted = 1;
+
+				// Upis izmenjenog sloga u fajl
 				fseek(fajl, -sizeof(BLOK), SEEK_CUR);
 				fwrite(&blok, sizeof(BLOK), 1, fajl);
+				fflush(fajl);
 				
-				printf("Brisanje sloga zavrseno.\n");
+				printf("Slog je logicki obrisan.\n");
 				return;
 			}
 		}
@@ -333,10 +348,10 @@ void obrisiSlogLogicki(FILE* fajl, char* evidBroj)
 }
 
 // Fizicko brisanje sloga sa trazenim kljucem
+// Identicno
 void obrisiSlogFizicki(FILE* fajl, char* evidBroj) 
 {
 	SLOG* slog = pronadjiSlog(fajl, evidBroj);
-
 	if (slog == NULL) 
 	{
 		printf("Slog koji zelite obrisati ne postoji!\n");
@@ -381,7 +396,7 @@ void obrisiSlogFizicki(FILE* fajl, char* evidBroj)
 			// povuci jedno mesto unazad
 			if (strcmp(blok.slogovi[i].evidBroj, evidBrojZaBrisanje) == 0) 
 			{
-				for (int j = i+1; j < FBLOKIRANJA; j++)
+				for (int j = i + 1; j < FBLOKIRANJA; j++)
 					memcpy(&(blok.slogovi[j - 1]), &(blok.slogovi[j]), sizeof(SLOG));
 
 				// Na poslednju poziciju u tom bloku upisujemo prvi slog iz narednog
