@@ -1,3 +1,12 @@
+/*
+Projekcije
+0. Definisati blok u definiciji struktura
+1. Ispisati sve projekcije i njihov redni broj
+2. Za unetu cenu karata ispisati sve sa istom ili vecom cenom
+3. Za zadatu cenu karata logicki obrisati sve jeftinije projekcije
+4. Za svaki tip projekcije (2D, 3D...) ispisati koliko ih ima
+*/
+
 #include "stdio.h"
 #include "stdlib.h"
 
