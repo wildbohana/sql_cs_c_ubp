@@ -14,7 +14,8 @@ FILE* otvoriDatoteku(char* filename);
 void ispisiSlog(SLOG* slog);
 void ispisiSveProjekcije(FILE* fajl);
 void ispisiSveTrazenePoCeni(FILE* fajl, int cena);
-void ispisiSveTrazenePoVrsti(FILE* fajl, char* vrsta);
+void pretragaPoVrsti(FILE* fajl, char* vrsta);
+void ispisiSveTrazenePoVrsti(FILE* fajl);
 void obrisiSlogLogicki(FILE* fajl, int cena);
 
 // Otvaranje postojece datoteke
@@ -111,15 +112,16 @@ void ispisiSveTrazenePoCeni(FILE* fajl, int cena)
 }
 
 // Pronalazenje projekcija koje trazena vrsta
-void ispisiSveTrazenePoVrsti(FILE* fajl, char* vrsta) 
+void pretragaPoVrsti(FILE* fajl, char* vrsta) 
 {
 	if (fajl == NULL) return;
 
 	fseek(fajl, 0, SEEK_SET);
 	BLOK blok;
 
-	printf("Projekcije vrste %s:\n", vrsta);
-	printf("BL SL RBr  Naziv      Trajanje  Vrsta  Cena\n");
+	int broj = 0;
+
+	printf("Projekcija vrste %s ima: ", vrsta);
 
 	while (fread(&blok, sizeof(BLOK), 1, fajl)) 
 	{
@@ -127,15 +129,25 @@ void ispisiSveTrazenePoVrsti(FILE* fajl, char* vrsta)
 		{
 			// Ako nema vise slogova
 			if (blok.slogovi[i].rBr == OZNAKA_KRAJA_DATOTEKE)
+			{
+				printf("%d\n", broj);
 				return;
+			}
 			
 			// Ako se evidBroj poklapa i slog NIJE logicki obrisan
 			if (strcmp(blok.slogovi[i].vrstaProjekcije, vrsta) == 0 && !blok.slogovi[i].deleted) 
 			{
-				ispisiSlog(&blok.slogovi[i]);
+				broj++;
 			}
 		}
 	}
+}
+
+void ispisiSveTrazenePoVrsti(FILE* fajl)
+{
+	pretragaPoVrsti(fajl, "2D");
+	pretragaPoVrsti(fajl, "3D");
+	pretragaPoVrsti(fajl, "4D");
 }
 
 // Logicko brisanje sloga sa cenom manjom od trazene
@@ -157,7 +169,7 @@ void obrisiSlogLogicki(FILE* fajl, int cena)
 			// Ako smo dosli do kraja datoteke, to znaci da tog sloga nema u datoteci
 			if (blok.slogovi[i].rBr == OZNAKA_KRAJA_DATOTEKE)
 			{
-				printf("Nema tog sloga u datoteci\n");
+				printf("Nema vise slogova u datoteci\n");
 				return;
 			}
 			// Pronasli smo trazeni slog i on NIJE logicki obrisan -> brisemo ga
@@ -166,7 +178,7 @@ void obrisiSlogLogicki(FILE* fajl, int cena)
 				if (blok.slogovi[i].deleted == 1) 
 				{
 					printf("Slog koji zelite obrisati ne postoji!\n");
-					return;
+					continue;
 				}
 
 				// Logicko brisanje
@@ -178,7 +190,6 @@ void obrisiSlogLogicki(FILE* fajl, int cena)
 				fflush(fajl);
 
 				printf("Slog je logicki obrisan.\n");
-				return;
 			}
 		}
 	}
