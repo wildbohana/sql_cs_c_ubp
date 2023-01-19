@@ -1,3 +1,12 @@
+/*
+AMSS, uverenja za automobile
+0. Napraviti blok sa faktorom blokiranja 3, kraj datoteke je -1
+1. Ispisati sve mehanicare (ovo sam mozda trebala malo drugacije)
+2. Za sve automobile uvecaj cenu pregleda za 1000 dinara
+3. Korisnik unosi prezime po kom trazis mehanicara, i ispisujes sva uverenja koja je on izdao
+4. Logicko brisanje uverenja (ne znam po kom kriterijumu, valjda po vrsti automobila)
+*/
+
 #include "stdio.h"
 #include "stdlib.h"
 
