@@ -43,7 +43,7 @@ void ispisiSlog(SLOG* slog)
 }
 
 // Ispis svih uverenja datoteke
-void ispisiSvaUverenja(FILE* fajl) 
+void ispisiSvaUverenja(FILE* fajl)
 {
 	if (fajl == NULL) 
 	{
@@ -132,20 +132,17 @@ void pretragaMehanicar(FILE* fajl, char* mehanicar)
 
 	while (fread(&blok, sizeof(BLOK), 1, fajl)) 
 	{
-		for (int i = 0; i < FBLOKIRANJA; i++) 
+		for (int i = 0; i < FBLOKIRANJA; i++)
 		{
 			// Ako nema vise slogova
 			if (blok.slogovi[i].sifraUverenja == OZNAKA_KRAJA_DATOTEKE)
 				return;
 			
 			// Ako se evidBroj poklapa i slog NIJE logicki obrisan
-			if (strcmp(blok.slogovi[i].prezimeMehanicara, mehanicar) == 0 && !blok.slogovi[i].deleted) 
-			{
+			if (strcmp(blok.slogovi[i].prezimeMehanicara, mehanicar) == 0 && !blok.slogovi[i].deleted)
 				ispisiSlog(&blok.slogovi[i]);
-			}
 		}
 	}
-
 	return;
 }
 
@@ -172,10 +169,8 @@ void obrisiSlogLogicki(FILE* fajl, char* vrsta)
 			}
 			else if (strcmp(blok.slogovi[i].vrstaVozila, vrsta) == 0) 
 			{
-				if (blok.slogovi[i].deleted == 1) 
-				{
+				if (blok.slogovi[i].deleted == 1)
 					continue;
-				}
 
 				// Logicko brisanje
 				blok.slogovi[i].deleted = 1;
