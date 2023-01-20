@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4063E554-BB89-4324-B4C5-65A406CFEAA0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ODP_NET_Concepts</RootNamespace>
+    <AssemblyName>ODP_NET_Concepts</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.19.9.0\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Command\Example01_Query.cs" />
+    <Compile Include="Command\Example02_QueryElegant.cs" />
+    <Compile Include="Command\Example03_QueryWithParams.cs" />
+    <Compile Include="Command\Example04_DDL_DML_QL.cs" />
+    <Compile Include="Command\Example05_SQLInjection.cs" />
+    <Compile Include="ConnectionPool\ConnectionUtil_Pooling.cs" />
+    <Compile Include="ConnectionPool\Example01_ConnectionPool.cs" />
+    <Compile Include="Connection\ConnectionParams.cs" />
+    <Compile Include="Connection\ConnectionUtil_Basic.cs" />
+    <Compile Include="InMemoryDataSet\Example01_Iterating.cs" />
+    <Compile Include="InMemoryDataSet\Example02_Updating.cs" />
+    <Compile Include="PreparedCommand\Example03_SQLInjection.cs" />
+    <Compile Include="PreparedCommand\Example01_Query.cs" />
+    <Compile Include="PreparedCommand\Example02_QueryWithParams.cs" />
+    <Compile Include="PreparedCommand\Example04_DDL_DML_QL.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StoredProcedure\Example01_ExecuteFunction.cs" />
+    <Compile Include="Transaction\Example01_AutoCommit.cs" />
+    <Compile Include="Transaction\Example02_ManualCommit.cs" />
+    <Compile Include="Util\ParameterUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="StoredProcedure\Example01_SelectProjekatFunction.sql" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

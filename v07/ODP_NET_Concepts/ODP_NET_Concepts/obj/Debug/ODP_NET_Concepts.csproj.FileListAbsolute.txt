@@ -1,0 +1,16 @@
+C:\Users\Aleksandar\source\repos\ODP_NET_Concepts\ODP_NET_Concepts\obj\Debug\ODP_NET_Concepts.csprojAssemblyReference.cache
+C:\Users\Aleksandar\source\repos\ODP_NET_Concepts\ODP_NET_Concepts\bin\Debug\ODP_NET_Concepts.exe.config
+C:\Users\Aleksandar\source\repos\ODP_NET_Concepts\ODP_NET_Concepts\bin\Debug\ODP_NET_Concepts.exe
+C:\Users\Aleksandar\source\repos\ODP_NET_Concepts\ODP_NET_Concepts\bin\Debug\ODP_NET_Concepts.pdb
+C:\Users\Aleksandar\source\repos\ODP_NET_Concepts\ODP_NET_Concepts\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\Users\Aleksandar\source\repos\ODP_NET_Concepts\ODP_NET_Concepts\obj\Debug\ODP_NET_Concepts.csproj.CopyComplete
+C:\Users\Aleksandar\source\repos\ODP_NET_Concepts\ODP_NET_Concepts\obj\Debug\ODP_NET_Concepts.exe
+C:\Users\Aleksandar\source\repos\ODP_NET_Concepts\ODP_NET_Concepts\obj\Debug\ODP_NET_Concepts.pdb
+C:\Users\Aleksandar\Documents\docs\fax\bp1\drive-download-20211002T125102Z-001\03_ODP_NET_(PSI)\03_BP1_ODP_NET_Concepts\ODP_NET_Concepts\ODP_NET_Concepts\obj\Debug\ODP_NET_Concepts.csprojAssemblyReference.cache
+C:\Users\Aleksandar\Documents\docs\fax\bp1\drive-download-20211002T125102Z-001\03_ODP_NET_(PSI)\03_BP1_ODP_NET_Concepts\ODP_NET_Concepts\ODP_NET_Concepts\obj\Debug\ODP_NET_Concepts.exe
+C:\Users\Aleksandar\Documents\docs\fax\bp1\drive-download-20211002T125102Z-001\03_ODP_NET_(PSI)\03_BP1_ODP_NET_Concepts\ODP_NET_Concepts\ODP_NET_Concepts\obj\Debug\ODP_NET_Concepts.pdb
+C:\Users\Aleksandar\Documents\docs\fax\bp1\drive-download-20211002T125102Z-001\03_ODP_NET_(PSI)\03_BP1_ODP_NET_Concepts\ODP_NET_Concepts\ODP_NET_Concepts\bin\Debug\ODP_NET_Concepts.exe.config
+C:\Users\Aleksandar\Documents\docs\fax\bp1\drive-download-20211002T125102Z-001\03_ODP_NET_(PSI)\03_BP1_ODP_NET_Concepts\ODP_NET_Concepts\ODP_NET_Concepts\bin\Debug\ODP_NET_Concepts.exe
+C:\Users\Aleksandar\Documents\docs\fax\bp1\drive-download-20211002T125102Z-001\03_ODP_NET_(PSI)\03_BP1_ODP_NET_Concepts\ODP_NET_Concepts\ODP_NET_Concepts\bin\Debug\ODP_NET_Concepts.pdb
+C:\Users\Aleksandar\Documents\docs\fax\bp1\drive-download-20211002T125102Z-001\03_ODP_NET_(PSI)\03_BP1_ODP_NET_Concepts\ODP_NET_Concepts\ODP_NET_Concepts\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\Users\Aleksandar\Documents\docs\fax\bp1\drive-download-20211002T125102Z-001\03_ODP_NET_(PSI)\03_BP1_ODP_NET_Concepts\ODP_NET_Concepts\ODP_NET_Concepts\obj\Debug\ODP_NET_Concepts.csproj.CopyComplete
