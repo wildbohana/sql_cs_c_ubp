@@ -1,0 +1,90 @@
+Relacioni model podataka:
+ - otklanja nedostatke klasičnih modela podataka (čvrsta povezanost logičkih i fizičkih aspekata, strukturalna kompleksnost, navigacioni jezik)
+ - insistira na matemaričkim osnovama u razvoju modela podataka (teorija skupova i relacije)
+
+Rešenje za nezavisnost programa od podataka:
+ - potpuno odvajanje prezentacionog od formata memorisanja
+ - relacija je skup torki
+Strukturalna jednostavnost - koncept relacije:
+ - ne sadrži nikakve informacije o fizičkoj organizaciji podataka
+ - relacija je lako razumljiva korisnicima podataka
+ - uobičajena je i tabelarna Reprezentacija
+
+Kod relacionog modela podataka, podaci se adresiraju asocijativno (isključiva upotreba simboličkih adresa - vrlo često vrednost ključa)
+Podaci se povezuju upotrebom simboličkih adresa, za njihovo pretvaranje iz simbolične u relativnu se brine SUBP
+Prostiranje ključa - strani ključ, ograničenje refencijalnog integriteta
+Deklarativni jezik se temelji na primenjenim tehnikama povezivanja podatak sa prostiranjem ključa, dva alata - realciona algebra i relacioni račun
+
+SQL - deklarativan jezik, zasnovan na relacionom računu nad torkama
+
+~
+
+12 principa relacionog modela podataka:
+
+0. Da bi se sistem kvalifikovao kao relacioni sistem za upravljanje BP, taj sistem mora koristiti svoje relacione operacije da bi upravljao BP
+1. Sve informacije u bazi podataka se prikazuju na jedan i samo jedan način, pre svega preko vrednosti u kolonama unutar vrsta od tabela.
+2. Svim podacima se mora moći pristupiti preko ključa. Svakoj vrednosti u BP se mora moći logički pristupiti preko imena tabele, kolone i primarnog ključa vrste u kojoj se nalazi
+3. Sistem za upravljanje bazom podataka mora svakom polju da dozvoli da ostane prazno (ili null).
+4. Korisnici moraju moći da pristupe strukturi BP (katalogu) koristeći isti upitni jezik koji su koristili da pristupe podacima u BP.
+5. Sistem mora da podržava bar jedan relacioni jezik.
+6. Svi pogledi koji se u teoriji mogu ažurirati, moraju da mogu da se ažuriraju preko sistema.
+7. Operacije insert, update i delete bi trebale da mogu da se koriste nad bilo kojim skupom, umesto samo nad jednom vrstom u jednoj tabeli.
+8. Promene na fizičkom nivou ne smeju da zahtevaju promene u aplikacijama koje su zasnovane na toj strukturi.
+9. Promene na logičkom nivou (tabele, kolone...) ne smeju da zahtevaju promenu u aplikacijama koje su zasnovane na toj strukturi.
+10. Ograničenja integriteta moraju biti odvojeno specificirana od aplikativnih programa i sačuvani u katalogu.
+11. Distribucija delova baze podazaka na više lokacija ne bi trebalo biti vidljivo korisnicima baze podataka.
+12. Ako relacioni sistem ima nizak jezik, taj nizak nivo ne sme biti koriščen da bi se zaobišla pravila integriteta i ograničenja koja su jezici višeg nivoa nametnula.
+
+~
+
+Primitivni koncepti u RMP: obeležje, domen
+Polazna pretpostavka strukturalne komponente RMP:
+ - poznat je skup svih obeležja sistema
+ - poznat je skup svih domena sistema
+Svakom obeležju obavezno se pridružuje tačno jedan domen
+
+Primitivni koncepti nivoa intenzije: domen, obeležje
+Primitivni koncept nivoa ekstenzije: vrednost
+
+Torka - reprezentuje jednu pojavu entiteta ili poveznika
+Pomoću torke se svakom obeležju iz nekog skupa obeležja dodeljuje konkretna vrednost
+
+Relacija, nad skupom obeležja, predstavlja konačan skup torki
+Reprezentuje skup realnih entiteta ili poveznika
+U relaciji se ne mogu pojaciti dve identične torke
+Uobičajena reprezentacija relacije - pomoću tabele
+
+~
+
+DML u RMP:
+ - operacije za ažuriranje relacija (add, delete, update)
+DDL u RMP:
+ - operacije za upravljanje šemom BP
+QL u RMP:
+ - operacije za izražavanje upita nad jednom relacijom, ili skupom relacija
+
+Osnovne skupovne operacije nad relacijama: unija, presek, razlika
+
+Selekcija torki iz relacije omogućava izbor (selektovanje) torki relacije po nekom kriterijumu
+Logičkom formulom F izražava se kriterijum po kojem se torke relacije selektuju; biće selektovane samo one torke, za koje je formula F tačna
+
+Prirodni spoj relacija - spajanje torki različitih relacija po osnovu istih vrednosti zajedničkih obeležja
+Dekartov spoj relacija - spajanje formiranjem svih mogućih kombinacija torki iz dve relacije
+Teta spajanje relacija - selektovanje torki po nekom kriterijumu iz dekartovog proizvoda relacija
+
+~
+
+Šema relacije - N(R, O)
+ N - naziv šeme relacije, R - skup obeležja šeme relacije, O - skup ograničenja šeme relacije
+Pojava nad šemom relacije - bilo koja relacija r(R) takva da zadovoljava sva ograničenja iz skupa O 
+
+Relaciona šema podatka - (S, I)
+ S - skup šema relacija, I - skup međurelacionih ograničenja
+Relaciona baza podataka - jedna pojava nad zadatom šemom baze podataka
+
+Baza podataka reprezentuje jedno stanje realnog sistema
+Šema BP - statička (sporo promenljiva)
+Relaciona BP - dinamička (stalno promenljiva)
+
+RBP nad šemom (S,I) se nalazi u formalnom konzostentnom stanju ako RBP zadovoljava sva ograničenja odgovarajuće šeme, kao i sva međurelaciona ograničenja
+RBP nad šemom (S,I) se nalazi u suštinski konzostentnom stanju ako se RBP nalazi u formalno konzistentnom stanju i predstavlja vernu sliku realnog sistema

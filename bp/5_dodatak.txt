@@ -1,0 +1,60 @@
+Integritetna komponenta RMP je definisana putem tipova ograničenja
+Karakteristike tipa ograničenja:
+ - formalizam za zapisivanje
+ - pravilo za validaciju (interpretaciju)
+ - oblast definisanosti
+ - oblast interpretacije
+ - skup operacija nad BP koje mogu dovesti do narušavanja ograničenja datog tipa
+ - skup mogućih akcija kojima se obezbeđuje očuvanje validnosti BP
+
+Tipovi ograničenja RBP: domena, vrednosti obeležja, torke, integriteta entiteta (ključa), zavisnost sadržavanja, referencijalnog integriteta, funkcionalna zavisnost
+
+Oblasti definisanosti u RMP:
+ - vanrelaciono ograničenje
+ - jednorelaciono (lokalno) ograničenje
+ - višerelaciono ograničenje
+Oblasti interpretacije u RMP:
+ - ograničenje vrednosti - nad tačno jednom vrednošću nekog obeležja
+ - ograničenje torke - nad jednom torkom bilo koje relacije
+ - relaciono ograničenje - nad skupom torki bilo koje relacije
+ - međurelaciono ograničenje - nad barem dve, bilo koje relacije
+
+Ograničenje domena:
+ - id(D) = (Tip, Dužina, Uslov)
+
+Ograničenje vrednosti:
+ - id(N, A) = (Domen, Null, Uslov)
+ - nula vrednost je specijalna vrednost, označava se posebnim simbolom, skup mogućih vrednosti svih domena proširuje se nula vrednošću
+ - moguća značenja nula vrednosti obeležja: nepoznata vrednost, nepostojeća vrendost, neinformativna vrednost
+
+Ograničenje torke:
+ - id(N) = id(R) = ({id(N,A) | A€R}, Uslov)
+ - izražava ograničenja na moguće vrednosti unutar jedne torke
+ - predstavlja skup ograničenja vrednosti obeležja kom je pridodat logički uslov
+ - logički uslov mora da zadovolji svaka torka
+
+Ograničenje integriteta entiteta (ključa):
+ - za sva obeležja ključa nula vrednosti su zabranjene
+ - sa obzirom na ključeve, vrste obeležja šeme realcije mogu biti primarna (ključno) i neprimarna
+ - svaka šema relacije mora imati najmanje jedan ključ
+ - svaka šema relacije treba da poseduje tačno jedan primerni ključ
+ - ograničenje jedinstvenosti: Unique(N,X) 
+ - oblast interpretacije - skup torki (relacija) nad datom šemom N(R,O)
+
+Ključ šeme relacije - minimalni podskup skupa obeležja šeme relacije, na osnovu kojeg se jedinstveno može identifikovati svaka torka relacije nad datom šemom
+
+Kada šemu relacije treba interpretirati u datom SUBP, skup svih ograničenja šeme relacije se zadaje kao unija: skupa ključeva, ograničenja jedinstvenosti i ograničenja torke
+ N(R,K  U  Uniq  U  {id(R)})
+
+Zavisnost sadržavanja - u dve različite šeme relacije se nalaze domenski kompatibilni nizovi obeležja, jedan dođe podskup drugom
+
+Ogranireče referencijalnog integriteta:
+ - zavisnost sadržavanja Ni[X] u Nj[Y]
+ - Ni - referncirajuća šema relacije, Nj - referencirana šema relacije
+
+Funcionalna zavisnost:
+ - ako je poznata X vrednost, poznata je i Y vrednost
+ - svakoj X vrednosti odgovara samo jedna Y vrednost
+ - primer: ako dve FZ torke imaju istu vrednost za MBR, moraju imati istu vrednost i za IME
+ - trivijalna FZ - svaka FZ koja je zadovoljena u bilo kojoj relaciji
+ 

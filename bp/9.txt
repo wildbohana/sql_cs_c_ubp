@@ -1,0 +1,100 @@
+Osnovna struktura serijske organizacije datoteke:
+ - slogovi smešteni jedan za drugim u sukcesivne memorijske lokacije
+ - fizička struktura ne sadrži informacije o vezama između slogova logičke strukture datoteke
+ - ne postoji veza između vrednosti ključa sloga i adrese lokacije u koju je smešten
+ - redosled memorisanja slogova najčešće prema hronološkom redosledu njihovog nastanka
+ - slogovi mogu, a i ne moraju, biti blokirani
+
+Formiranje serijske datoteke:
+ - generiše se najčešće u postupku obuhvata podataka
+ - slogovi se formiraju prenosom podataka sa različitih izvora
+ - slogovi se upisuju jedan za drugim u sukcesivne memorijske lokacije, svaki novi se upisuje na kraj datoteke
+ - rezultat obuhvata podataka je neblokirana ili blokirana serijska datoteka
+
+Upotreba obuhvata podataka - u realnom vremenu ili u batch režimu
+
+Traženje slučajno odabranog sloga u serijskoj datoteci:
+ - traženje logički narednog = traženje slučajno odabranog
+ - linearno traženje počinje od početka datoteke, pa sukcesivno pristupa memorisanim blokovima i slogovima
+ - za neuspešno traženje, ukupan broj pristupa je jednak ukupnom broju blokova serijske datoteke
+ - za neuspešno traženje, ukupan broj upoređivanja argumenta traženja i vrednosti ključa je jednak broju slogova serijske datoteke
+
+Serijska datoteka se može koristiti kao vodeća u režimu direktne obrade i u redoslednoj obradi
+
+Serijska datoteka kao obrađivana datoteka - redosledna obrada:
+ - učitavanje sukcesivnih slogova vodeće datoteke
+ - svaki naredni slog vodeće datoteke sadrži logički narednu vrednost ključa obrađivane serijske datoteke
+ - te vrednosti ključa se koristi kao argumenti za traženje metodom linearnog traženja 
+Serijska datoteka kao obrađivana datoteka - direktna obrada:
+ - sukcesivni slogovi vodeće datoteke sadrže slučajno odabrane vrednosti ključa obrađivane serijske datoteke
+ - traženje je linearno
+
+Ažuriranje serijske datoteke - upis novog sloga:
+ - u prvu slobodnu lokaciju na kraj datoteke
+ - mora mu prethoditi jedno neuspešno traženje
+ - zahteva veliki broj pristupa
+Ažuriranje serijske datoteke - brisanje postojećeg sloga:
+ - mora mu prethoditi jedno uspešno traženje
+ - najčešće samo logičko
+ - fizičko zahteva veliki broj pristupa
+Ažuriranje serijske datoteke - modifikacija sadržaja postojećeg sloga:
+ - mora mu prethoditi jedno uspešno tražanje
+
+Pogodne su kao male datoteke, kada mogu stati cele u OM 
+
+~
+
+Osnovna struktura sekvencijalne organizacije podataka:
+ - slogovi su smešteni sukcesivno jedni za drugim
+ - logički susedni slogovi se smeštaju u fizički susedne lokacije
+ - informacija o vezama između slogova LSP je ugrađena u FSP
+ - veza između memorisanih vrednosti ključa i adrese lokacija ne predstavlja nikakvu matematičku funkciju
+ - slogovi se smeštaju u blokovima od po f>=1 slogova (poželjno što veće f)
+ - savremeni OS podržavaju samo serijski način pristupa
+
+Formiranje sekvencijalne datoteke - najčešće sortiranjem serijske datoteke saglasno rastućim ili opadajućim vrednostima ključa
+
+Traženje slučajno odabranog sloga u sekvencijalnoj datoteci:
+ - moguća primena metoda linearnog i binarnog traženja
+ - nema praktičnog smisla ako je datoteka velika i ako nije u OM
+Traženje logički narednog sloga u sekvencijalnoj datoteci:
+ - linearnom metodom traženja
+ - počevši od tekućeg, fizički susedni blokovi se učitavaju u OM
+ - CPU vrši poređenje argumenata traženja i vrednosti ključeva sukcesivnih slogova
+ - traženje novog, logički narednog sloga, započinje od sloga na kom se prethodno traženje zaustavilo
+ - broj pristupa pri uspešnom i neuspešnom traženju je jednak (B - i)
+ - broj poređenja argumenata traženja i vrednosti ključeva slogova i pri uspešnom i pri neuspešnom traženju je jednak (N - i + 1)
+
+Obrada sekvencijalne datoteke kao vodeća (direktna i redosledna obrada):
+ - česta upotreba
+ - sukcesivno učitavanje fizički susednih slogova, počevši od prvog, pa do poslednjeg
+
+Obrada sekvencijalne datoteke kao obrađivane - direktna obrada:
+ - ima smisla samo ako je datoteka mala, tako da može da se smesti u OM
+ - performanse obrade se malo razlikuju od performansi obrade serijske datoteke
+Obrada sekvencijalne datoteke kao obrađivane - redosledna obrada:
+ - vodeća datoteka generiše logički naredne vrednosti ključa za traženje
+ - svaki korak obrade = traženje logički narednog sloga (linearno traženje)
+ - svaki blok datoteke se učitava u OM samo jedanput
+
+Ažuriranje sekvencijalne datoteke - upis novog sloga:
+ - zahteva prethodno neuspešno traženje
+ - lokacija sloga sa prvom većom vrednošču od datog
+ - pomeranje za jednu lokaciju udesno svih slogova sa vrednostima ključa većim od vrednosti ključa novog sloga
+Ažuriranje sekvencijalne datoteke - brisanje postojećeg sloga:
+ - zahteva prethodno uspešno traženje sloga
+ - pomeranje za jednu lokaciju ulevo svih slogova sa vrednostima ključa većom od vrednosti ključa obrisanog sloga (ako se brisanje vrši fizički)
+  - ozbiljan problem ukupnog broja pristupa
+Ažuriranje sekvencijalne datoteke - modifikacija sadržaja sloga:
+ - zahteva prethodno uspešno traženje sloga
+ - ozbiljan problem ukupnog broja pristupa
+Kada je kompletna datoteka smeštena u OM primenjuje se režim direktne obrade
+Kada datoteka ne može kompletna da se smesti u OM primenjuje se režim redosledne obrade (dodatne datoteke - datoteka grešaka, vodeća datoteka promena, obrađivana sekvencijalna datoteka, obrađena sekvencijalna datoteka)
+
+Prednosti sekvencijalne organizacije:
+ - najpogodnija fizička organizacija za redoslednu obradu
+ - ekonomično korišćenje memorijskog prostora
+Nedostaci sekvencijalne organizacije:
+ - nepogodna za direktnu obradu
+ - potrebno je sortiranje pri formiranju
+ - relativno dugotrajan postupak ažuriranja

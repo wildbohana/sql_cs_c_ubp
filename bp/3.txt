@@ -1,0 +1,116 @@
+Model podataka je matematička apstrakcija putem koje se gradi šema baze podataka
+Služi za predstavljanje LSO realnog sistema, ograničenja u odnosima između podataka o stanjima realnog sistema i dinamiku izmene stanja realnog sistema putem operacija nad podacima
+
+Model podataka je trojka (S, I, O)
+ S - strukturalna komponenta (modeliranje LSO kao šeme BP)
+ I - integritetna komponenta (modeliranje ograničenja nad podacima u BP)
+ O - operacijska komponenta (modeliranje dinamike uzmene stanja podataka u BP i same šeme BP)
+
+Nivoi apstrakcije određeni modelom podataka:
+ - nivo intenzije (konteksta) {nivo tipa - npr LSO}
+ - nivo ekstenzije (konkretizacije) {nivo pojave tipa - npr LSP}
+
+Nivoi apstrakcije:
+ M3 - nivo tipova, pojava i MOF
+ M2 - nivo koncepata i MP
+ M1 - nivo LSO i šeme BP
+ M0 - nivo LSP i FSP, BP
+
+~
+
+Koncept - apstraktna predstava jedne klase pojmova
+Strukturalna komponenta sadrži:
+ - skup primitivnih koncepata (sa skupom datih osobina, pravila za korišćenje i opisanom mogućom semantikom za njih)
+ - skup formalnih pravila za kreiranje složenih koncepata
+ - skup unapred kreiranih složenih koncepata
+
+Nivo intenzije:		Domen		Obeležje	Tip entiteta	Tip poveznika	Šema BP
+Nivo ekstenzije:	Vrednost	Podatak		Pojava TE		Pojava TP		Baza podataka
+
+~
+
+Integritetna komponenta sadrži:
+ - skup tipova ograničenja (uslova integriteta) sa skupom datih osobina svakog tipa ograničenja, skupom pravila za njihovo korišćenje i opisanom mogućom semantikom
+ - skup formalnih pravila za izvođenje zaključaka o konzistentnosti ograničenja (implikacioni problem)
+ - skup formalnih pravila za kreiranje novih tipova
+
+Pomoću tipova ograničenja se iskazuju konkretna ograničenja koja se odnose na:
+ - moguće vrednosti obeležja (podataka)
+ - moguće odnose između pojava povezanih tipova
+ - moguče odnose između pojava i vrednosti obeležja
+
+Neka od ograničenja: ograničenje kluča (integritet entiteta), ograničenje domena, kardinalitet tipa poveznika
+
+Validacija ograničenja - provera važenja ograničenja
+Može se ugraditi u transakcione programe ili uspecifikaciju šeme podataka (implementacija u okviru SUBP)
+Teži se ka rešenju da se sva ograničenja podataka ugrade u šemu BP, a da se pojedina ograničenja ugrade u transakcione programe
+
+~
+
+Operacijska komponenta - skup tipova operacija sa:
+ - skupom datih osobina svakog tipa operacije, koje uključuju pravila formalnog specificiranja i izvršenja nad podacima
+ - skupom pravila za njihovo korišćenje
+ - opisanom mogućom semantikom
+Ona definiše QL, DML i DDL
+
+QL - tipovi operacija za iskazivanje upita nad BP
+DML - tipovi operacija izmena stanja BP (ažuriranje)
+DDL - tipovi operacija za kreiranje i modifikaciju specifikacija (šeme BP, fizičke strukture BP, prava pristupa i zaštite BO, novi tipovi operacija za upravljanje podacima)
+
+Specifikacija operacije sadrži komponente:
+ - aktivnost (specifikacija akcije nad podacima u BP)
+ - selekcija (specifikacija dela BP ili dela šeme BP nad kojim se sprovodi specificirana aktivnost)
+
+Mogući načini selekcije:
+ - putem vrednosti obeležja (asocijativno adresiranje), iskazuje se putem logičkih izraza 
+ - putem odnosa između podataka
+ - pomoću logičkog mesta u strukturi podataka (na osnovu indikatora aktuelnosti)
+
+Operacijska komponenta može biti:
+ - proceduralna (navigaciona) {izbor jednog objekta iz BP, selekcija putem indikatora aktuelnosti ili odnosa između podataka}
+ - specifikaciona (deklarativna) {izbor skupa objekata iz BP, selekcija na osnovu vrednosti obeležja}
+
+~
+
+Hijerarhijski model podataka:
+ - šeme BP - stabla nad tipovima slogova
+ - proceduralna operacijska komponenta
+ - baziran na organizaciji papirnih dokumenata
+ - svaki tip sloga je imao samo jednog vlasnika i pristup je išao preko njega 
+
+Mrežni model podataka:
+ - šema BP - mreža nad tipovima slogova
+ - proceduralna operacijska komponenta
+ - omogućena M:N veza
+
+ER model (tipovi entiteta i poveznika):
+ - semantički model podataka
+ - nastao na osnovama starijih modela 
+
+Relacioni model:
+ - implementacioni model podataka
+ - šema BP - tabela slogova (kao skup n-torki)
+ - deklarativna operacijska komponenta
+
+Logički i fuzzy logički modeli:
+ - dalja nagradnja relacionog modela
+ - uvođenje dedukcije u baze podataka
+ - pridruživanje verovatnoća podacima u bazi
+ - rezonovanje na intervalu [0,1]
+
+Objektno orijentisani model:
+ - zasnovan na mrežnim i semantičkim modelima
+ - koristi klase, tip, operacije i interfejse
+ - objedinjeno posmatranje struktura podataka i operacija nad podacima
+ - proceduralna operacijska komponenta
+
+Objektno relacioni model:
+ - implementacioni model podataka
+ - kombinuje relacioni i OO model podataka
+
+XML model podataka:
+ - zasnovan na XML jezicima i paradigmi analognoj hijerarhijskom modelu podataka
+ - implementacioni model podataka
+ - šema BP - stablo nad elementima i atributima, opisan putem XML jezika
+ - deklarativna operacijska komponenta
+ 

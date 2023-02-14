@@ -1,0 +1,147 @@
+Datoteka je struktura slogova, organizovana nad tipom sloga kao linearna struktura atributa
+Format sloga - pravila za struktuiranje i interpretaciju sadržaja sloga
+Opšta struktura sloga datoteke kao FSP uključuje podatke iz LSP i podatke o organizaciji FSP na eksternom memorijskom uređaju 
+Svaki slog predstavlja niz polja sa vrednostima atributa
+
+Opšta struktura sloga datoteke kao FSP:
+ - ki(S) - polja vrednosti atributa primarnog ključa
+ - pi(S) - polja vrednosti ostalih atributa
+ - s(S)  - polje statusa sloga (aktuelnost sloga u LSP)
+ - ui(S) - polja pokazivača za memorisanje veza u LSP
+ - fi(S) - kontrolna polja kod slogova varijabilne dužine
+Jedina obavezna grupa polja je k(S) koja se sastoji od najmanje jednog polja
+Struktura sloga se često posmatra kao linearna, uređena u rastućem ili opadajućem redosledu vrednosti primarnog ključa
+
+Format polja sloga je uslovljen specifikacijom domena odgovarajućeg atributa
+Polja u slogovima mogu biti konstantne i promenljive dužine (potrebno je memorisati informaciju o granicama polja - koristi se kontrolno polja fi(S))
+
+Slogovi mogu biti konstante ili promenljive dužine (potrebno je memorisati informaciju o granicama sloga - koristi se kontrolno polja fi(S))
+
+Slogovi sa ponavljajućim grupama:
+ - moraju uvek biti slogovi varijabilne dužine
+ - višestruko pojavljivanje vrednosti atributa u jednom slogu
+Postoje i slogovi bez ponavljajućih grupa
+
+Vrste adresa lokacija:
+ - apsolutna (mašinska) adresa {stvara zavisnost od fizičkih karakteristika uređaja, ne zahteva transformaciju}
+ - relativna adresa {obezbeđuje nezavisnost od fizičkih karakteristika uređaja, zahteva transformaciju do apsolutne adrese}
+ - simbolička (asocijativna) adresa {vrednost ključa, zahteva transfromaciju u relativnu adresu}
+
+~
+
+Blok kao organizaciona jedinica podataka predstavlja niz slogova koji ima konstantan kapacitet
+Uobičajeno, jedan blok predstavlja niz od 2^n fizičkih blokova
+Kapacitet bloka ne može da bude manji od kapaciteta fizičkog bloka
+Blok se sastoji od zaglavlja bloka i od niza slogova
+Faktor blokiranja - broj slogova u bloku
+
+Vrste blokova:
+ - blokovi sa slogovima promenljive dužine (više slogova može biti smešteno u jedan blok)
+ - blokovi sa slogovima konstantne dužine (svaki blok datoteke sadrži uvek isti broj slogova)
+
+Zaglavlje datoteke:
+ - proširenje osnovne strukture datoteke
+ - uvodi se specijalan slog na početku datoteke
+ - sadrži podatke o organizaciji datoteke i formatu bloka i sloga datoteke
+
+Oznaka kraja datoteke:
+ - specijalan slog za oznaku kraja datoteke
+ - specijalna oznaka kraja u polje pokazivača
+ - posebna evidencija zauzetosti prostora
+ - kraj prostora dodeljen datoteci (tj. ništa se ne dodaje)
+
+~
+
+Paket programa (rutina) za podršku usluga visokog nivoa:
+ - manipulacija sadržajem datoteka
+ - rutine metode pristupa
+ - upravljanje baferima metode pristupa
+ - podrška različitih vrsta organizacije datoteka
+ - usluge niskog nivoa izabranog OS
+ - obezbeđuje nezavisnost aplikativnog programa od usluga niskog nivoa OS
+ - usluge razmene podataka sa aplikativnim programom (na nivou sloga i na nivou bloka)
+ - usluge pristupa podacima iz aplikativnih programa (sekvencijalni, direktni i dinamički pristup)
+
+Dodatni zadaci pri upravljanju strogo struktuiranim datotekama:
+ - podrška različitih tipova podataka (datumi, multimedijalni...)
+ - podrška različitih kodnih rasporeda
+ - konverzija podataka
+
+Upravljanje baferima metode pristupa - tri nivoa baferisanja podataka datoteke u OM:
+ - nivo sistemskih bafera (upravlja OS)
+ - nivo bafera metode pristupa (upravlja okruženje u kom je implementirana metoda pristupa)
+ - nivo lokacija primenljivih u aplikativnom nivou (upravlja aplikativni program)
+
+OS koji uključuju metode pristupa:
+ - podržavaju upravljanje blokovima i baferima metode pristupa
+ - dozvoljavaju eksplicitno deklarisanje formata bloka na nivou pojedinačne datoteke
+Biblioteke koje uključuju metode pristupa:
+ - svaki savremeni jezik pruža određene usluge metoda pristupa (C, Java...)
+ - eksplicitno koriste usluge niskog nivoa izabranog OS
+ - najčešće pružaju samo usluge blokiranja slogova i konverzije podataka
+SUBP koja uključuju metode pristupa:
+ - svaki SUBP ih obavezno obezbeđuje
+ - eksplicitno koristi usluge niskog nivoa OS
+ - moguće je i da SUBP direktno upravlja fizičkom razmenom podataka između datoteke na disku i OM
+ - podržava upravljanje blokovima i baferima metode pristupa
+
+~
+
+Organizacija podataka:
+ - projekat LSO (projektovanje tipa entiteta tj. tipa sloga)
+ - projekat i implementacija FSP
+ - cilj je obezbediti zadovoljenje korisničkih zahteva i uslove za efikasnu obradu podataka
+Rezultat organizovanja podataka - sistem baze podataka ili sistem datoteka
+
+Način dodele lokacija slogovima:
+ - svaki novi slog se upisuje na kraj datoteke, kao fizički susedan u odnosu na poslednji slog datoteke (prostor može da se alocira i statički i dinamički)
+ - svaki novi slog dobija prbu slobodnu lokaciju iz spregnute linearne strukture slobodnih lokacija (prostor se uvek statički alocira)
+ - svaki novi slog dobija slobodnu lokaciju čija relativna adresa predstavlja funkciju vrednosti ključa (prostor se uvek statički alocira) (slogovi moraju biti isključivo konstantne dužine)
+
+Način memorisanja logičkih veza:
+ - fizičkim pozicioniranjem
+ - pomoću pokazivača kao relativnih adresa (pokazivači ugrađeni u osnovnu strukturu ili u pomoćne strukture)
+ - logičke veze se ne memorišu
+
+~
+
+Osnovne organizacije datoteke - FSP nad skupom slogova, organizovana u jednoj memorijskoj zoni
+Složene organizacije - FSP uključuju barem dve memorijske zone (dve datoteke operativnog sistema)
+
+Osnovne organizacije datoteka: serijska, sekvencijalna, spregnuta, rasuta...
+Složene organizacije datoteka: rasute sa zonom prekoračenja, statičke indeksne, dinamičke indeksne
+
+Ove vrste organizacije se pojavljuju u praksi kao:
+ - fizičke organizacije datoteka (u sistemima datoteka)
+ - fizičke organizacije table (u sistemima baza podataka)
+
+~
+
+Vrste postupaka nad LSP datoteke:
+ - formiranje datoteke
+ - pristupanje datoteci
+ - traženje u datoteci
+ - pretraživanje u datoteci
+ - obrada datoteka
+ - ažuriranje datoteke
+ - reorganizacija datoteke
+
+~
+
+Idealna organizacija datoteke:
+ - zahteva tačno onoliko lokacija koliko sadrži slogova (faktor popunjenosti 100%)
+ - zahteva najviše jedan pristup za tso i tln (pretrage)
+ - zahteva najviše jedan pristup za pretraživanje (po bilo kom zadatom uslovu)
+ - zahteva jedan pristup za bilo koju operaciju ažuriranja
+ - nikada ne zahteva reorganizaciju
+
+Ukupno vreme traženja/pretraživanja slogova zavisi do:
+ - broja i vremena pristupa blokovima na jedinici diska
+ - vremena prenosa bloka sa diska u OM
+ - broja i vremena upoređivanja argumenata sa vrednošću ključa
+
+Mere za ocenu performansi:
+ - broj pristupa blokvima i broj upoređivanja argumenata i vrednosti ključa
+ - srednji i apsolutni broj (ČEGA JEBEMTI)
+ - tražanja logički narednog sloga, traženje slučajno odabranog sloga, operacije ažuriranja
+ - uspešna i neuspešna operacija

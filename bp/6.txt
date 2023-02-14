@@ -1,0 +1,108 @@
+Datoteka kao LSP - struktura nad skupom pojava jednog tipa entiteta, često je to struktura slogova nad datim tipom sloga 
+Datoteka kao FSP - predstavlja jednu LSP koja može biti viđena kao linearna struktura slogova smeštenu na eksterni memorijski uređaj, zajedno sa informacijama o samom načinu smeštanja LSP na uređaj
+
+Motivacija za upotrebu eksternih memorijskih uređaja:
+ - trajno memorisanje podataka
+ - memorisanje velikih količina podataka
+ - tolerantno brz pristup i operativno korišćenje velike količine memorisanih podataka
+ - postizanje niske cene memorisanja po jedinici kapaciteta
+
+Vrste memorija: operativna memorija, magnetni disk
+Najveća razlika u ove dve memorije je ta što na magnetnom disku vreme pristupa zavisi od položaja lokacije na memorijskom medijumu, i bitno je duže nego kod OM
+Osim toga, direktno prihvatanja podataka od strane CPU je moguće samo za OM
+
+~
+
+Opšta struktura memorijskog uređaja:
+ - upravljačka jedinica (i prihvatna memorija uređaja)
+ - jedinica za memorisanje podataka
+
+Magnetni disk kao memorijski medijum ima jednu ili više kružnih ploča na rotirajućoj osovini
+Adresni mehanizam čine aktuator (koračni motor) i komplet upisno-čitajućih glava na nosaču
+Organizacija adresnog prostora magnetnog diska:
+ - ćelija diska (najmanja jedinica upisa/čitanja podataka) [1 bit]
+ - staza (kružnica koju opisuje upisno-čitajuća glava na zadatom poluprečniku)
+ - cilindar (skup svih staza istog poluprečnika)
+ - sektor (luk na stazi konstantnog ugla, staza se deli na konstantan broj sektora)
+
+Kapacitet staze može biti konstantan i promenljiv
+Konstantan - promenljiva podužna gustina zapisa (ne postiže se maksimalan mogući kapacitet)
+Promenljiv - konstantna podužna gustina zapisa (komplikovanija organizacija adresnog prostora)
+
+Sektor je najmanja adresibilna jedinica diska, svakom sektoru se pristupa direktno, a svakom bitu unutar sektora se pristupa sekvencijalno
+Kada su staze konstantnog kapaciteta, onda su i staze podeljene na konstantan broj sektora
+Kada su staze promenljivog kapaciteta, onda su staze organizovane u nekoliko zona, tako da svaka zona u sebi sadrži isti broj sektora (zonsko-sektorska organizacija)
+
+Uspostava adresnog prostora diska:
+ - fabrička priprema (fabričke karakteristike)
+ - formatiranje diska od strane OS 
+Adresni prostor je diskretizovan numeracijom cilindara, staza i sektora
+
+Vreme pristupa sektoru zavisi od vremena pozicioniranja kompleta glava na zadati cilindar, vremena aktiviranja R/W glave za zadatu stazu i od vremena pozicioniranja R/W glave na početak zadatog sektora
+
+Mane magnetnog diska:
+ - mala efikasnost prenosa podataka kroz U/I podsistem
+ - velik broj potrebnih pristupa
+
+~
+
+Sprežni (U/I) podsistem je sistem veza i algoritama za fizički prenos podataka između kontrolera periferijskog uređaja i OM 
+Sastoji se iz linije podataka, adresne linije, upravljačke i informacione linije
+Propusni opseg (bandwidth) - mogući broj prenetih bajtova u jedinici vremena, najviše zavisi od broja linija podataka i ciklusa sprežnog podsistema
+U/I podsistem vrši prenos samo celih blokova podataka
+Jedinica diska obezbeđuje smeštanje i preuzimanje samo celih fizičkih blokva podataka
+
+Fizički blok je organizaciona jedinica memorisanja podataka
+Blok podataka je organizaciona jedinica prenosa podataka
+Kapacitet bloka (i fizičkog i logičkog) - fiksna veličina, definisana unapred na nivou OS 
+Fizički blok na disku zauzima uvek ceo broj sektora, fizički susdenih sektora, na istoj stazi diska 
+Ovo smanjuje broj pristupa disku, ali dovodi do unutrašnje i spoljne fragmentacije prostora
+
+Sistemski bafer je prostor OM koji se alocira za potrebe smeštanja sadržaja jednog bloka podataka, pripada sistemskom delu OM
+Podaci se smeštaju u bafere OM samo u jedinicama blokova (ovo zahteva veći kapacitet OM)
+
+Kontroler jedinice diska ima sledeće zadatke:
+ - dekodiranje i izvršavanje R/W komande dobijene od CPU
+ - prijem adrese fizičkog bloka na disku
+ - upravljanje adresnim mehanizmom u cilju pozicioniranja na traženu adresu
+ - privremeno memorisanje sadržaja bloka (cache memorija na jedinici diska)
+
+Sprežni podsistem za fizički prenos podataka ima sledeće zadatke:
+ - inicijalizacija prenosa podataka (uvek je realizuje CPU)
+ - fizička razmena podataka na relaciji kontroler - OM
+ - ispitivanja statusa spremnosti uređaja
+Vrste prenosa: klasični programirani prenos, prenos iniciran prekidima, DMA prenos
+
+~
+
+Parametri koji utiču na efikasnost razmene podataka:
+ - srednje vreme pristupa bloku
+ - vreme R/W sadržaja bloka na disk 
+ - propusni opseg diska (brzina razmene podataka)
+
+Sistemi disk jedinica:
+ - klasterske arhitekture (više nezavisnih jedinica diskova, jedan sprežni sistem, jedinstveni adresni sistem i načini pristupa)
+ - nizovi disk jedinica (RAID, više jedinica diskova koji se ponašaju kao jedna, postoji redundantnost)
+
+~
+
+Tehnike obezbeđenja dobrih performansi:
+ - korišćenje uticaja tehnologije i tehnoloških parametara
+ - projektovanje odgovarajuće arhitekture sistema diskova
+ - izbor odgovarajućeg OS i podešavanje parametara OS
+ - projektovanje odgovarajuće FSP datoteka
+
+~
+
+Operativni sistem omogućava organizovanje različitih FSP datoteka i može da pruža različite poglede na FSP datoteke 
+Mogući pogledi:
+ - kao linearna struktura slogova (najčešće za potrebe korisničkih programa)
+ - kao niza znakova ili bajtova (za potrebe sistemskih programa, ali i za korisničkie programe)
+ - kao strukture blokova (za potrebe memorisanja i razmene podataka kroz U/I podsistem)
+
+OS na jedinici diska održava strukture podataka o:
+ - proizvođačkim karakteristikama same disk jedinice
+ - ispravnim i neispravnim sektorima, kao i o zamenskim za neispravne
+ - slobodnom i zauzetom prostoru na disku
+ - katalogu sa pokazivačima na opise datoteka
+ - sistemskoj i alokacionoj tabeli svake datoteke

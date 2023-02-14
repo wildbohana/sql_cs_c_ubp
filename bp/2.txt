@@ -1,0 +1,63 @@
+Podaci mogu da se skladište u operativnu memoriju, ali ti podaci će biti samo privremeni
+
+Klasična organizacija podataka - IS nad sistemima datotekama, sačinjen iz skupa nezavisnih aplikacija
+Svaka aplikacija ima svoje sopstvene podatke, i vremenom, takav sistem dolazi u kontradikciju sam sa sobom
+Osnovni nedostaci:
+ - nepovezanost aplikacija (potreba ručnog prepisivanja istih ili sličnih podataka)
+ - redundantnost podataka (potreba višestrukog memorisanja istih ili sličnih podataka)
+ - čvrsta povezanost programa i podataka (program vodi računa o FSP datoteke, kako u opisu, tako i u proceduri)
+ - konkurentan pristup više korisnika
+Ovo sve otežava održavanje IS i dalji razvoj istog
+
+~
+
+Osnovne ideje:
+ - integracija podataka jednog IS u jednu veliku datoteku (nastanak pojma baze podataka)
+ - uvođenje posebnog softverskog proizvoda za podršku kreiranja i korišćenja baze podataka (SUBP)
+
+Definicija baze podataka:
+ Skup međusobno povezanih podataka, pohranjenih zajedno, bez bespotrebne redundanse, koji mogu zadovoljiti različite primene
+
+Podaci su pohranjeni na način nezavisan od programa koji ih koriste
+Prilikom dodavanja novih podataka, menjanja i pretraživanja postojećih podataka, primenjuje se zajednički i kontrolisan pristup
+Podaci su struktuirani tako da služe kao osnova za ravoj budućih primena
+
+SUBP je softverski proizvod, namenjen da omogući izgradnju i korišćenje baza podataka
+Sadrži DDL, DML i QL
+Jezgro SUBP - obezbeđenje fizičke organizacije podataka, rutine za upravljanje podacima, zaštita od neovlašćenog pristupa i od uništenja, obezbeđenje višekorisničkog režima rada, distribuirane organizacije BP i zadavanje šeme baze podataka
+Mane SUBP: visoka vena, komplikovana instalacija i administracija, proizvod opšte namene 
+
+Dominantne paradigme baza podataka:
+ - relacione BP (zasnovane na relacionoj algebri i relacionom računu)
+ - NoSQL BP (nisu zasnovane na relacionim principima) - objektne, XML, graf...
+
+~
+
+Program koji koristi usluge SUBP poznaje samo šemu BP kao logičku kategoriju
+Nad šemom BP koristi LSP; ne sme da vodi računa o FSP
+Preslikavanje LSP - FSP je zadatak SUBP
+Šema BP uvodi fizičku nezavisnost BP od aplikacija, smanjuje zavisnost programa i šeme BP od promena FSP, smanjuje redundantnost i uvodi uloge projektanta i administratora baze podataka
+
+~
+
+Promene šeme BP mogu izazvati česte i nepotrebne proene postojećih programa, što dovodi do otežanog održavanja softverske podrške IS
+Kao rešenje se uvodi novi koncept i sloj - podšema (eksterna šema)
+
+Podšema je LSP, dobijena na osnovu dela šeme BP, dovoljna za realizaciju zadataka jednog (ili grupe sličnih) transakcionih programa
+Podšema se, kao i šema BP, projektuje u procesu razvoja IS
+Poželjna je organizacija transakcionih programa da koriste bazu podataka isključivo putem podšema
+Poželjno je da preslikavanje podšema - šema BP bude zadatak SUBP, a može biti i zadatak samog transakcionog programa
+Podšema uvodi logičku nezavisnost aplikacija i šema BP
+
+~
+
+Šema i podšema su modeli na nivou apstrakcije obeležja
+Globalni pogled i pogled su modeli na nivou apstrakcije podataka
+
+Pogled - pojava LSP nad podšemom, slika dela BP
+Globalni pogled - pojava LSP nad šemom BP, slika BP
+
+~
+
+Sistem baza podataka u užem smislu obuhvata: bazu podataka, SUBP, šemu baze podataka, jezike i operacije za kreiranje, ažuriranje i korišćenje BP, sistemski softver i računare na kojima je BP kreirana 
+Sistem baza podataka u širem smislu obuhvata: više baza podataka integrisanog IS, više SUBP koji predstavljaju logičku celinu (isti ili različiti), sav prateći softver i hardver

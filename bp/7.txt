@@ -1,0 +1,83 @@
+Datotečki (file) sistem OS-a:
+ - upravljanje datotekama (FSP na eksternim memorijskim uređajima)
+ - upravljanje i realizacija razmene podataka između aplikativnih programa i datoteka
+ - obezbeđenje mehanizma zaštite od neovlašćenog pristupa datotekama i oštećenja podataka
+ - obezbeđenje podrške različitih LSP datoteka (preslikavanje LSP - FSP)
+
+Pruža usluge niskog i visokog nivoa
+Usluge niskog nivoa obezbeđuju LSP datoteke samo kao niza bajtova i njeno preslikavanje u FSP niza blokova
+Usluge visokog nivoa obezbeđuju različite LSP datoteke i njihovo preslikavanje u FSP niza blokova, obezbeđuju izgradnju specijalnih pomoćnih struktura za poboljšanje efikasnosti obrade podataka, kao i traženje zasnovano na vrednostima podataka
+
+Usluge niskog nivoa - servisi koji isključivo pripadaju OS
+Usluge visokog nivoa - servisi koji mogu biti ugrađeni u OS, biblioteke i SUBP
+
+Usluge niskog nivoa:
+ - upravljanje prostorom eksternog memorijskog uređaja
+ - upravljanje katalogom
+ - upravljanje fizičkom razmenom podataka
+ - obezbeđenje veze programa i datoteke
+ - sistemski pozivi 
+Usluge visokog nivoa:
+ - metode pristupa 
+
+~
+
+Rutine za upravljanje prostorom jedinice diska:
+ - uspostava adresnog prostora i fajl sistema (formatiranje, kreiranje struktura podataka)
+ - održavanje strukture podataka sa evidencijom slobodnog i zauzetog prostora na disku (alokacija, dealokacija, defragmentacija)
+ - arhiviranje, restauracija i oporavak sadržaja diska
+
+~
+
+Katalog je hijerarhijska struktura direktorijuma tipa stabla
+Koren - korenski direktorijum, čvor - direktorijum ili datoteka
+Katalog omogućava relativno i apsolutno referenciranje čvorova u strukturi
+Katalog je formiran na jednoj ili grupi jedinica memorijskih uređaja sa direktnim pristupom (OM ???)
+
+Rutine za upravljanje katalogom:
+ - kreiranje, brisanje, preimenovanje i prevezivanje direktorijuma u strukturi
+ - izlistavanje i pretraživanje sadržaja direktorijuma i datoteka
+ - kreiranje i brisanje datoteka u direktorijumu
+ - preimenovanje, kopiranje i premeštanje datoteka u strukturi
+ - dodela i ukidanje prava pristupa nad direktorijumima i datotekama
+ - izmena nekih atributa datoteka
+
+~
+
+Rutine za upravljanje fizičkom razmenom podataka:
+ - rutine U/I uređaja (drajvera uređaja)
+ - upravljanje razmenom blokova kroz U/I podsistem
+
+~
+
+Tabela OS je struktura podataka za opis nekog resursa kojim OS operativno upravlja
+Tabele OS, važne za obezbeđenje veze programa i datoteke:
+ - tabela uređaja
+ - sistemska tabela datoteke
+ - alokaciona tabela datoteke
+ - tabela logičkih imena datoteke
+ - tabela opisa datoteke
+
+~ 
+
+Pozivi rutina OS za upravljanje datotekama pružaju usluge niskog nivoa, poput:
+ - pogled na datoteku kao niza bajtova
+ - upravljanje blokovima datoteke
+ - upravljanje sistemskim baferima
+ - nezavisnost aplikativnog programa od fizičkih karakteristika eksternog memorijskog uređaja
+
+Pozivi rutina OS za upravljanje datotekama podržavaju sekvencijalni i direktni pristup bajtovima datoteke
+Sekvencijalni pristup - pri operacijama učitavanja/zapisivanja, zahtevaju zadavanje ukupnog broja bajtova za operaciju, automatski održavaju vrednost tekućeg pokazivača
+Direktni pristup - pri operacijama pozicioniranja zahtevaju zadavanje vrednosti tekućeg pokazivača
+
+Pozivi rutina OS za upravljanje datotekama vode računa o karakteristikama datoteke
+Neke od njih su početak i kraj datoteke, indikator tekuće pozicije
+
+Tipovi sistemskih poziva (Unix):
+ create, open, read, write, seek, close, sync, delete, truncate, stat
+
+~
+
+Metode pristupa podržavaju usluge visokog nivoa
+One koriste ili uključuju usluge niskog nivoa izabranog OS, poput pogleda na LSP datoteke, preslikavanje pogleda u FSP niza fizičkih blokova...
+Servisi metoda pristupa mogu biti ugrađeni u OS, biblioteke i SUBP
